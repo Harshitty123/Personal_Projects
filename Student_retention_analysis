@@ -1,4 +1,4 @@
-Project Title: Student Success & Retention Analytics (SQL Case Study)
+## Project Title: Student Success & Retention Analytics (SQL Case Study)
 
 1. Identifying Duplicate Records & Nulls
 -- Checking for duplicate Student IDs
@@ -61,7 +61,7 @@ SELECT participation_level, ROUND(AVG(avg_course_grade), 2) as avg_grade
 FROM ParticipationGroups
 GROUP BY participation_level;
 
-7. Retention Risk Matrix
+6. Retention Risk Matrix
 Goal: Create a cross-tab view of Risk Level vs. Enrollment Status.
 SELECT 
     enrollment_status,
@@ -71,7 +71,7 @@ SELECT
 FROM student_performance
 GROUP BY enrollment_status;
 
-Goal: Identify which department needs the most tutoring resources based on average course grades.
+7. Goal: Identify which department needs the most tutoring resources based on average course grades.
 SELECT 
     major,
     AVG(avg_course_grade) as avg_dept_grade,
@@ -81,13 +81,13 @@ GROUP BY major
 HAVING AVG(avg_course_grade) < (SELECT AVG(avg_course_grade) FROM student_performance)
 ORDER BY avg_dept_grade ASC;
 
-Goal: Create a list of students who have 'Leave' status but 'High' GPA (Retention targets).
+8. Goal: Create a list of students who have 'Leave' status but 'High' GPA (Retention targets).
 SELECT student_id, major, gpa, enrollment_status
 FROM student_performance
 WHERE enrollment_status = 'Leave' AND gpa > 3.0;
 
 
-
+9. Final Analysis
 CREATE VIEW v_student_risk_dashboard AS
 SELECT 
     student_id,
@@ -103,7 +103,7 @@ SELECT
     END AS action_plan
 FROM student_performance;
 
-Developed a 10-stage SQL analytical pipeline to identify academic risk patterns across 1,500+ student records.
-Engineered a custom "Engagement Score" metric using weighted aggregations of LMS logins, forum activity, and submission rates.
-Utilized Advanced SQL (Window Functions, CTEs, Subqueries) to percentile-rank student performance within departments and identify "Silent Strugglers" (High GPA/Low Engagement).
+### Developed a 10-stage SQL analytical pipeline to identify academic risk patterns across 1,500+ student records.
+### Engineered a custom "Engagement Score" metric using weighted aggregations of LMS logins, forum activity, and submission rates.
+### Utilized Advanced SQL (Window Functions, CTEs, Subqueries) to percentile-rank student performance within departments and identify "Silent Strugglers" (High GPA/Low Engagement).
 
